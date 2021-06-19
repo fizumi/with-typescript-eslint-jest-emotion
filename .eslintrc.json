@@ -1,13 +1,17 @@
 {
   "parser": "@typescript-eslint/parser",
+
+  // https://github.com/yannickcr/eslint-plugin-react#configuration
   "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
-    // Uncomment the following lines to enable eslint-config-prettier
-    // Is not enabled right now to avoid issues with the Next.js repo
-    // "prettier",
+    "plugin:@typescript-eslint/recommended", // https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
+    "plugin:react-hooks/recommended", // https://github.com/facebook/react/tree/master/packages/eslint-plugin-react-hooks
+    "plugin:promise/recommended", // https://github.com/xjamundx/eslint-plugin-promise
+    "plugin:import/recommended", //https://github.com/benmosher/eslint-plugin-import#typescript
+    "plugin:import/typescript", // https://github.com/benmosher/eslint-plugin-import#typescript
+    "prettier" // https://github.com/prettier/eslint-config-prettier#installationaaaaaaaa
   ],
   "env": {
     "es6": true,
@@ -18,7 +22,15 @@
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "paths": ["."] // https://github.com/vercel/next.js/discussions/13048#discussioncomment-23607
+      }
     }
+    // "import/parsers": {
+    //   "@typescript-eslint/parser": [".ts", ".tsx"]
+    // }
   },
   "rules": {
     "react/react-in-jsx-scope": 0,
@@ -32,13 +44,14 @@
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-unused-vars": [
-      2,
+      1,
       {
+        // "varsIgnorePattern": "^_",
         "argsIgnorePattern": "^_"
       }
     ],
     "no-console": [
-      2,
+      0, // transform-remove-console を使用するので緩和
       {
         "allow": ["warn", "error"]
       }
